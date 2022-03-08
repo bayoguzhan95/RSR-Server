@@ -45,17 +45,17 @@ export const updateShipmentType = async (req, res) => {
 };
 
 export const addSeason = async (req, res) => {
-  try {
-    const { seasons } = req.body;
+  const { season } = req.body;
 
-    let seasonExist = await Season.findOne({ season: seasons }).exec();
-    if (seasonExist) return res.status(400).send(`${seasons} already created.`);
+  try {
+    let seasonExist = await Season.findOne({ season }).exec();
+    if (seasonExist) return res.status(400).send(`${season} already created.`);
 
     const ss = new Season({
-      seasons,
+      season,
     });
     await ss.save();
-    return res.json({ seasons });
+    return res.json({ season });
   } catch (error) {
     console.log(error);
     return res.status(400).send('Error. Try again.');
