@@ -24,7 +24,10 @@ import {
   getAllDeliveryTerms,
   deleteDeliveryTerm,
   updateDeliveryTerm,
-} from '../controllers/descriptions';
+  addBox,
+  getAllBoxes,
+  deleteBox,
+} from '../controllers/settings';
 
 // Shipment Type
 router.post('/addShipmentType', addShipmentType);
@@ -56,5 +59,10 @@ router.post('/addDeliveryTerm', addDeliveryTerm);
 router.get('/getAllDeliveryTerms', getAllDeliveryTerms);
 router.delete('/deleteDeliveryTerm/:slug', deleteDeliveryTerm);
 router.put('/updateDeliveryTerm/:slug', updateDeliveryTerm);
+
+// Box Settings
+router.post('/addBox', addBox);
+router.get('/getAllBoxes', getAllBoxes);
+router.delete('/deleteBox/:slug', deleteBox);
 
 module.exports = router;

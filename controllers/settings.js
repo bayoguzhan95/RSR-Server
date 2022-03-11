@@ -4,6 +4,7 @@ import Season from '../models/Season';
 import Certification from '../models/Certification';
 import Country from '../models/Country';
 import DeliveryTerm from '../models/DeliveryTerm';
+import Box from '../models/Box';
 
 // Shipment Type
 export const getAllShipmentTypes = async (req, res) => {
@@ -239,6 +240,42 @@ export const updateDeliveryTerm = async (req, res) => {
     }
     const updated = await DeliveryTerm.findOneAndUpdate({ deliveryTerm: req.params.slug }, req.body, { new: true }).exec();
     res.json(updated);
+  } catch (error) {
+    return res.status(400).send('Error. Try again');
+  }
+};
+
+// BOX SETTINGS
+
+export const addBox = async (req, res) => {
+  const { l, w, h, maxweight, tareweight } = req.body.box;
+
+  const box = new Box({
+    length: l,
+    width: w,
+    height: h,
+    maxWeight: maxweight,
+    tareWeight: tareweight,
+  });
+
+  await box.save();
+  return res.json('Succesfully created');
+};
+export const getAllBoxes = async (req, res) => {
+  try {
+    let Boxes = await Box.find({}).sort({ createdAt: 1 }).exec();
+    res.json(Boxes);
+  } catch (error) {
+    return res.status(400).send('Error in , Try again.');
+  }
+};
+export const deleteBox = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const deleteBox = await Box.findOneAndRemove({
+      _id: slug,
+    });
+    return res.json(deleteBox);
   } catch (error) {
     return res.status(400).send('Error. Try again');
   }
